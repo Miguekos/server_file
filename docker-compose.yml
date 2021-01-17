@@ -1,0 +1,13 @@
+# docker-compose.yml
+version: "2"
+services:
+  app:
+    container_name: server_file
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python3 main.py
+    volumes:
+      - /usr/local/volumes/fileserver/uploads/:/app/uploads/
+    ports:
+      - "4444:4444"
