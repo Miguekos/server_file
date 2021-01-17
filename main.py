@@ -14,7 +14,7 @@ cors = CORS()
 cors.init_app(app, resource={r"/api/*": {"origins": "*"}})
 
 
-@app.route('/files/<filename>')
+@app.route('/api/files/<filename>')
 def uploaded_file_static_test(filename):
     name = filename.split('.')[0]
     insertarMongo = MongoConect(name)
