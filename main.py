@@ -14,7 +14,7 @@ cors = CORS()
 cors.init_app(app, resource={r"/api/*": {"origins": "*"}})
 
 
-@app.route('/api/files/<filename>')
+@app.route('/files/<filename>')
 def uploaded_file_static_test(filename):
     name = filename.split('.')[0]
     insertarMongo = MongoConect(name)
@@ -38,11 +38,12 @@ def upload():
         # Inicia la logica
         global result
         result = "Error Controlado"
+
         for fname in request.files:
             f = request.files.get(fname)
             import uuid
             idregistro = "{}".format(uuid.uuid4())
-            print("Archivo F:",f)
+            print("Archivo F:", f)
             print("Archivo F:", type(f))
             print("Archivo fname:", fname)
             print("Archivo fname:", type(fname))
@@ -50,13 +51,16 @@ def upload():
             # print("secure_filename", secure_filename(fname))
 
             date = datetime.datetime.now()
-            peso = len(f.read())
-            print("Peso: ", peso)
             ruta = "./uploads/{}/{}/{}/{}".format(date.strftime("%Y"), date.strftime("%m"), date.strftime("%d"),
                                                   idregistro)
             print("ruta: {}".format(ruta))
+
             # print("{}".format(secure_filename(f)))
             f.save('{}.{}'.format(ruta, secure_filename(fname).split('.')[1]))
+            g = request.files.get(fname)
+            peso = len(g.read())
+            print("Peso: ", f)
+            print("Peso: ", peso)
 
             date = datetime.datetime.now()
             ext = f.filename.split('.')[1]
@@ -77,7 +81,7 @@ def upload():
             if result:
                 print(result)
                 result = {
-                    "name" : "{}.{}".format(idregistro, ext)
+                    "name": "{}.{}".format(idregistro, ext)
                 }
             else:
                 result = "{}".format("Error controlado")
@@ -90,4 +94,4 @@ def upload():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0" ,port=4444, debug=True)
+    app.run(host="0.0.0.0", port=4444, debug=True)
