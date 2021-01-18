@@ -19,14 +19,17 @@ cors.init_app(app, resource={r"/api/*": {"origins": "*"}})
 
 @app.route('/api/files/<filename>')
 def uploaded_file_static_test(filename):
-    name = filename.split('.')[0]
-    insertarMongo = MongoConect(name)
-    result = insertarMongo.BuscarFile()
-    print(result)
-    print("result: {}{}{}".format(result['ruta'], result['idRegistro'], result['ext']))
+    try:
+        name = filename.split('.')[0]
+        insertarMongo = MongoConect(name)
+        result = insertarMongo.BuscarFile()
+        print(result)
+        print("result: {}{}{}".format(result['ruta'], result['idRegistro'], result['ext']))
 
-    # print("filename: ", app.config['STATIC'], filename)
-    return send_from_directory("{}".format(result['ruta']), "{}{}".format(result['idRegistro'], result['ext']))
+        # print("filename: ", app.config['STATIC'], filename)
+        return send_from_directory("{}".format(result['ruta']), "{}{}".format(result['idRegistro'], result['ext']))
+    except:
+        return "error controlado"
 
 
 @app.route('/api/upload', methods=['POST', "OPTIONS"])
@@ -92,9 +95,8 @@ def upload():
             # f.save('./uploads/%s' % secure_filename(fname))
 
         return result
-    except NameError:
-        print(NameError)
-
+    except:
+        return "error controlado"
 
 
 try:
