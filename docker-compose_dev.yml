@@ -1,8 +1,8 @@
-# docker-compose.yml
+# docker-compose_dev.yml
 version: "2"
 services:
   app:
-    container_name: server_file
+    container_name: server_file_dev
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,4 +10,4 @@ services:
     volumes:
       - /usr/local/volumes/fileserver/uploads/:/app/uploads/:rw
     ports:
-      - "4444:4444"
+      - "4545:4545"

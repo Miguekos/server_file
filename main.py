@@ -5,6 +5,9 @@ import os
 import datetime
 import uuid
 from controllers.mongo import MongoConect
+import sys
+from pathlib import Path  # python3 only
+from dotenv import load_dotenv  # pip install python-dotenv
 
 app = Flask(__name__)
 
@@ -93,5 +96,23 @@ def upload():
         print(NameError)
 
 
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=4444, debug=True)
+
+try:
+    enviro = sys.argv[1]
+    if enviro == "pro":
+        env_path = Path('.') / '.env.pro'
+        load_dotenv(dotenv_path=env_path)
+        print(os.getenv('ENVIRO'))
+        print("APP ENV: PRODUCCION")
+    if __name__ == '__main__':
+        # app.run()
+        app.run(host='0.0.0.0', port=os.getenv("PORT"), debug=os.getenv("DEBUG"))
+
+except:
+    env_path = Path('.') / '.env.dev'
+    load_dotenv(dotenv_path=env_path)
+    print(os.getenv('ENVIRO'))
+    print("APP ENV: DESARROLLO")
+    if __name__ == '__main__':
+        # app.run()
+        app.run(host='0.0.0.0', port=os.getenv("PORT"), debug=os.getenv("DEBUG"))

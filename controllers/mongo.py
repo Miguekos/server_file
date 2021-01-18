@@ -9,7 +9,8 @@ client = MongoClient()
 # logging.debug("Mongo Conectado a: {}".format(os.getenv("URL_MONGO")))
 # mongo = MongoClient(os.getenv("URL_MONGO"))
 # mongo = MongoClient("mongodb://127.0.0.1:27017")
-mongo = MongoClient("mongodb://admin:password@207.244.232.99:37018")
+# mongo = MongoClient("mongodb://admin:password@207.244.232.99:37018")
+mongo = MongoClient(os.getenv("URL_MONGO"))
 mydb = mongo["fileserver"]
 
 
