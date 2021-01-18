@@ -8,6 +8,6 @@ services:
       dockerfile: Dockerfile
     command: python3 main.py
     volumes:
-      - /usr/local/volumes/fileserver/uploads/:/app/uploads/:rw
+      - /usr/local/volumes/fileserver_dev/uploads/:/app/uploads/:rw
     ports:
       - "4545:4545"
