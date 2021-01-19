@@ -18,8 +18,9 @@ class MongoConect(object):
     def __init__(self, arg):
         date = datetime.datetime.now()
         self.arg = arg
-        self.namedb = "{}_{}_{}".format(date.strftime("%Y"), date.strftime("%m"), date.strftime("%d"))
-        self.mycol = mydb["{}_{}".format("archivos", self.namedb)]
+        # self.namedb = "{}_{}_{}".format(date.strftime("%Y"), date.strftime("%m"), date.strftime("%d"))
+        # self.mycol = mydb["{}_{}".format("archivos", self.namedb)]
+        self.mycol = mydb["archivos"]
 
     def InsertarFile(self):
         # idregistro = "{}".format(uuid.uuid4())
