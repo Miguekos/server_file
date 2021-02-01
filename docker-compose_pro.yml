@@ -3,11 +3,6 @@ version: "2"
 services:
   app:
     container_name: server_file_pro
-    logging:
-      driver: "json-file"
-      options:
-        max-file: 5
-        max-size: 10m
     build:
       context: .
       dockerfile: Dockerfile
