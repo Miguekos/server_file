@@ -17,7 +17,22 @@ cors = CORS()
 cors.init_app(app, resource={r"/api/*": {"origins": "*"}})
 
 
-@app.route('/api/files/<filename>')
+@app.route('/api/server/fileslist')
+def list_files():
+    try:
+        insertarMongo = MongoConect(None)
+        result = insertarMongo.BuscarFileAll()
+        print("result", result)
+        # print("filename: ", app.config['STATIC'], filename)
+        return {
+            "result": result
+        }
+    except NameError:
+        print(NameError)
+        return "error controlado"
+
+
+@app.route('/api/server/files/<filename>')
 def uploaded_file_static_test(filename):
     try:
         name = filename.split('.')[0]
@@ -32,7 +47,7 @@ def uploaded_file_static_test(filename):
         return "error controlado"
 
 
-@app.route('/api/upload', methods=['POST', "OPTIONS"])
+@app.route('/api/server/upload', methods=['POST', "OPTIONS"])
 def upload():
     try:
         # creando carpeta de la ruta si no existe
@@ -69,7 +84,8 @@ def upload():
             print("Peso: ", peso)
 
             date = datetime.datetime.now()
-            ext = f.filename.split('.')[1]
+            ext = f.filename.split('.')[-1]
+            print("ext", ext)
             nombre = secure_filename(fname)
 
             print(nombre)
@@ -106,15 +122,17 @@ try:
         load_dotenv(dotenv_path=env_path)
         print(os.getenv('ENVIRO'))
         print("APP ENV: PRODUCCION")
+    deb = os.getenv("DEBUG")
     if __name__ == '__main__':
         # app.run()
-        app.run(host='0.0.0.0', port=os.getenv("PORT"), debug=os.getenv("DEBUG"))
+        app.run(host='0.0.0.0', port=os.getenv("PORT"), debug=False if deb=="False" else True)
 
 except:
     env_path = Path('.') / '.env.dev'
     load_dotenv(dotenv_path=env_path)
     print(os.getenv('ENVIRO'))
     print("APP ENV: DESARROLLO")
+    deb = os.getenv("DEBUG")
     if __name__ == '__main__':
         # app.run()
-        app.run(host='0.0.0.0', port=os.getenv("PORT"), debug=os.getenv("DEBUG"))
+        app.run(host='0.0.0.0', port=os.getenv("PORT"), debug=False if deb=="False" else True)

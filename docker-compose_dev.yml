@@ -10,4 +10,4 @@ services:
     volumes:
       - /usr/local/volumes/fileserver_dev/uploads/:/app/uploads/:rw
     ports:
-      - "4545:4545"
+      - "4444:4444"

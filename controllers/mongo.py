@@ -36,5 +36,21 @@ class MongoConect(object):
         print("BuscarFile", self.arg)
         resultplaca = self.mycol.find_one({"idRegistro": self.arg})
         resp = resultplaca
-        print("resp", resp)
+        print("resp_BuscarFile", resp)
         return resp
+
+    def BuscarFileAll(self):
+        print("BuscarFileAll")
+        # resultplaca = self.mycol.find({}).sort({"id_": -1})
+        global total
+        total = []
+        resultplaca = self.mycol.find({})
+        for doc in resultplaca:
+            doc['id_'] = str(doc['_id'])
+            print("doc", doc)
+            doc.pop('_id')
+            total.append(doc)
+        return total
+        # resp = resultplaca
+        # print("resp_BuscarFileAll", resp)
+        # return resp
