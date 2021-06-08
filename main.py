@@ -103,7 +103,8 @@ def upload():
             if result:
                 print(result)
                 result = {
-                    "name": "{}.{}".format(idregistro, ext)
+                    "name": "{}.{}".format(idregistro, ext),
+                    "url" : "{}:{}/api/server/files/{}.{}".format(os.getenv("URL"), os.getenv("PORT"),idregistro, ext)
                 }
             else:
                 result = "{}".format("Error controlado")

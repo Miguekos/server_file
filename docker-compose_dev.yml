@@ -9,5 +9,7 @@ services:
     command: python3 main.py
     volumes:
       - /usr/local/volumes/fileserver_dev/uploads/:/app/uploads/:rw
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - "4444:4444"
