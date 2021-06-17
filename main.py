@@ -31,7 +31,6 @@ def list_files():
         print(NameError)
         return "error controlado"
 
-
 @app.route('/api/server/files/<filename>')
 def uploaded_file_static_test(filename):
     try:
@@ -45,7 +44,6 @@ def uploaded_file_static_test(filename):
         return send_from_directory("{}".format(result['ruta']), "{}{}".format(result['idRegistro'], result['ext']))
     except:
         return "error controlado"
-
 
 @app.route('/api/server/upload', methods=['POST', "OPTIONS"])
 def upload():
@@ -114,6 +112,8 @@ def upload():
         return result
     except:
         return "error controlado"
+
+
 
 
 try:
